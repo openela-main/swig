@@ -68,7 +68,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.3.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -82,6 +82,12 @@ Source4: ccache-swig.csh
 # Fix precedence of casts - in upstream after 4.3.0
 # https://github.com/swig/swig/issues/3058
 Patch1:  swig-4.3.0-Fix-precedence-of-casts.patch
+# Python DeprecationWarning fixes - in upstream after 4.4.0
+# https://github.com/swig/swig/issues/2881
+Patch2:  swig-4.4.0-Python-DeprecationWarning-fixes.patch
+# Python 3.14 support - in upstream after 4.4.0
+# https://github.com/swig/swig/pull/3159
+Patch3:  swig-python-Python-3.14-support.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -365,6 +371,10 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Tue Sep 30 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.3.0-4
+- Resolves: RHEL-82838 - Fix Python DeprecationWarning
+- Python 3.14 support
+
 * Mon Nov 11 2024 Jitka Plesnikova <jplesnik@redhat.com> - 4.3.0-3
 - Resolves: RHEL-66938 - Fix precedence of casts
 
